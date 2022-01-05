@@ -32,14 +32,44 @@ or trademarks, whether by implication, estoppel or otherwise.
 
 # Setup
 
-<https://docs.microsoft.com/en-us/learn/modules/control-authentication-with-apim/3-exercise-create-subscriptions-in-apim>
-
-## Test the subscription key
+## [Test the subscription key](https://docs.microsoft.com/en-us/learn/modules/control-authentication-with-apim/3-exercise-create-subscriptions-in-apim)
 
 ```bash
 # /api/Weather/{latitude}/{longitude
 curl -X GET https://apim-weatherdata92c539cab4.azure-api.net/api/Weather/53/-1
 
 curl -X GET https://apim-weatherdata92c539cab4.azure-api.net/api/Weather/53/-1 \
-  -H 'Ocp-Apim-Subscription-Key: <Subscription Key>'
+  -H "Ocp-Apim-Subscription-Key: ${APIM_SUB_KEY}"
+```
+
+## [Use client certificates to secure access to an API](https://docs.microsoft.com/en-us/learn/modules/control-authentication-with-apim/5-exercise-secure-access-client-certs)
+
+```bash
+export MSYS_NO_PATHCONV=1
+
+# Create self-signed certificate
+pwd='Password123!'
+mkdir -p cert/
+pKey='cert/privateKey.key'
+pfxFilePath='cert/selfsigncert.pfx'
+certOutFilePath='cert/selfsigncert.crt'
+pemOutFilePath='cert/selfsigncert.pem'
+
+openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout $pKey -out $certOutFilePath -subj /CN=localhost
+
+openssl pkcs12 -export -out $pfxFilePath -inkey $pKey -in $certOutFilePath -password pass:$pwd
+openssl pkcs12 -in $pfxFilePath -out $pemOutFilePath -nodes
+
+# Certificate thumbprint
+
+Fingerprint="$(openssl x509 -in $pemOutFilePath -noout -fingerprint)"
+Fingerprint="${Fingerprint//:}"
+echo ${Fingerprint#*=}
+
+
+# Test the API with the self-signed cert
+curl -X GET https://apim-weatherdata92c539cab4.azure-api.net/api/Weather/53/-1 \
+  -H "Ocp-Apim-Subscription-Key: ${APIM_SUB_KEY}" \
+  --cert-type pem \
+  --cert $pemOutFilePath
 ```
