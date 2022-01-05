@@ -3,7 +3,7 @@
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
 Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.microsoft.com.
+the rights to use your contribution. For details, visit <https://cla.microsoft.com>.
 
 When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
 a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
@@ -23,9 +23,23 @@ see the [LICENSE](LICENSE) file, and grant you a license to any code in the repo
 Microsoft, Windows, Microsoft Azure and/or other Microsoft products and services referenced in the documentation
 may be either trademarks or registered trademarks of Microsoft in the United States and/or other countries.
 The licenses for this project do not grant you rights to use any Microsoft names, logos, or trademarks.
-Microsoft's general trademark guidelines can be found at http://go.microsoft.com/fwlink/?LinkID=254653.
+Microsoft's general trademark guidelines can be found at <http://go.microsoft.com/fwlink/?LinkID=254653>.
 
-Privacy information can be found at https://privacy.microsoft.com/en-us/
+Privacy information can be found at <https://privacy.microsoft.com/en-us/>
 
 Microsoft and any contributors reserve all other rights, whether under their respective copyrights, patents,
 or trademarks, whether by implication, estoppel or otherwise.
+
+# Setup
+
+<https://docs.microsoft.com/en-us/learn/modules/control-authentication-with-apim/3-exercise-create-subscriptions-in-apim>
+
+## Test the subscription key
+
+```bash
+# /api/Weather/{latitude}/{longitude
+curl -X GET https://apim-weatherdata92c539cab4.azure-api.net/api/Weather/53/-1
+
+curl -X GET https://apim-weatherdata92c539cab4.azure-api.net/api/Weather/53/-1 \
+  -H 'Ocp-Apim-Subscription-Key: <Subscription Key>'
+```
