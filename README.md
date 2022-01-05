@@ -36,9 +36,9 @@ or trademarks, whether by implication, estoppel or otherwise.
 
 ```bash
 # /api/Weather/{latitude}/{longitude
-curl -X GET https://apim-weatherdata92c539cab4.azure-api.net/api/Weather/53/-1
+curl -X GET $API_GW_URL/api/Weather/53/-1
 
-curl -X GET https://apim-weatherdata92c539cab4.azure-api.net/api/Weather/53/-1 \
+curl -X GET $API_GW_URL/api/Weather/53/-1 \
   -H "Ocp-Apim-Subscription-Key: ${APIM_SUB_KEY}"
 ```
 
@@ -68,7 +68,7 @@ echo ${Fingerprint#*=}
 
 
 # Test the API with the self-signed cert
-curl -X GET https://apim-weatherdata92c539cab4.azure-api.net/api/Weather/53/-1 \
+curl -X GET $API_GW_URL/api/Weather/53/-1 \
   -H "Ocp-Apim-Subscription-Key: ${APIM_SUB_KEY}" \
   --cert-type pem \
   --cert $pemOutFilePath
