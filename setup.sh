@@ -6,7 +6,7 @@ printf "Setting username and password for Git ... (1/7)\n\n"
 
 
 GIT_USERNAME=artiomlk
-GIT_EMAIL=koretskiartiom@gmail.com
+GIT_EMAIL=a@b.c
 
 git config --global user.name "$GIT_USERNAME"
 git config --global user.email "$GIT_EMAIL"
